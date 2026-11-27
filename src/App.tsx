@@ -47,17 +47,22 @@ function ProjectCard({ p, lead }: { p: Project; lead?: boolean }) {
   const [open, setOpen] = useState(false)
   const Diagram = diagrams[p.diagram as keyof typeof diagrams]
   const features = lead || open ? p.features : p.features.slice(0, 3)
-  const links = [['Repository', p.repo], ['Live demo', p.demo]].filter(([, u]) => u)
+  const links = [['Repository', p.repo], [p.release?.label ?? '', p.release?.url ?? ''], ['Live demo', p.demo]].filter(([, u]) => u)
   return (
     <article className={`card p-5 ${lead ? 'border-ok/40 md:col-span-2 md:grid md:grid-cols-2 md:gap-8' : ''}`}>
       <div>
         <p className="font-mono text-xs text-slate-400">PROJECT {p.id}{lead && <span className="text-ok"> · FEATURED</span>}</p>
+        {p.badges && (
+          <ul aria-label="Project status" className="mt-2 flex flex-wrap gap-1.5">
+            {p.badges.map(b => <li key={b} className="rounded-full border border-ok/40 bg-ok/10 px-2.5 py-0.5 font-mono text-xs text-ok">{b}</li>)}
+          </ul>
+        )}
         <h3 className={`mt-1 font-semibold text-white ${lead ? 'text-xl' : ''}`}>{p.title}</h3>
         <p className="text-sm text-acc">{p.role}</p>
         <p className="mt-3 text-sm">{p.desc}</p>
         <ul className="mt-3 space-y-1 text-sm">{features.map(f => <li key={f} className="flex gap-2"><span className="text-ok">+</span>{f}</li>)}</ul>
         <div className="mt-3 flex flex-wrap gap-1.5">{p.tech.map(x => <span key={x} className="tag">{x}</span>)}</div>
-        {links.length > 0 && <div className="mt-3 flex gap-4 text-sm">{links.map(([l, u]) => <a key={l} href={u} target="_blank" rel="noreferrer" className="text-acc hover:underline">{l} ↗</a>)}</div>}
+        {links.length > 0 && <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">{links.map(([l, u]) => <a key={l} href={u} target="_blank" rel="noreferrer" className="text-acc hover:underline">{l} ↗<span className="sr-only"> (opens in a new tab)</span></a>)}</div>}
         {!lead && (
           <button onClick={() => setOpen(o => !o)} aria-expanded={open} className="mt-4 flex items-center gap-1 text-sm text-acc hover:underline">
             {open ? 'Show less' : 'Show diagram & all features'}<ChevronDown size={14} className={`transition-transform ${open ? 'rotate-180' : ''}`} />

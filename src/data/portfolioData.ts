@@ -38,20 +38,36 @@ export const skills: { area: string; items: [string, Tag][] }[] = [
   { area: 'Databases & Development', items: [['Microsoft SQL Server & SSMS', 'Lotacor'], ['SQLite & SQL Fundamentals', 'ENTA'], ['HTML, CSS, JavaScript/TypeScript', 'Lotacor']] },
 ]
 
-export const projects = [
+export interface Project {
+  id: string; title: string; role: string; desc: string
+  features: string[]; tech: string[]
+  repo: string; demo: string; diagram: string
+  release?: { label: string; url: string }
+  badges?: string[]
+}
+
+export const projects: Project[] = [
   { id: '01', title: 'Internal Help Desk Ticketing System (Lotacor Internship)', role: 'Full-Stack & Systems Intern',
     desc: 'Support ticket management web application built during the Lotacor internship to organize user issues, track resolution waiting times, and prioritize urgent requests.',
     features: ['Ticket lifecycle management', 'Priority & SLA waiting-time tracking', 'Email verification', 'Duplicate submission validation', 'Automated status email updates', 'Rate limiting'],
     tech: ['Web Stack', 'SQL Database', 'Email Verification', 'Rate Limiting'], repo: '', demo: '', diagram: 'tickets' },
-  { id: '02', title: 'Enterprise SQL Server Database Documentation', role: 'IT & Database Documentation Intern (Lotacor)',
+  { id: '02', title: 'Clip-Patch — Safe AI Patch Applier (Open Source)', role: 'Author & Maintainer (Open-Source Project)',
+    desc: 'Command-line tool written in Go that safely applies AI-generated code patches from the clipboard or standard input. Changes are previewed before being applied. Explicit confirmation is required by default, with an optional --yes flag for automated workflows.',
+    features: ['Reads patches from the clipboard or standard input', 'SEARCH/REPLACE and unified diff formats', 'Preview and dry-run mode, with explicit confirmation by default (optional --yes flag for automation)', 'Automatic backups of original files, created and verified before writing', 'Staged writes: temporary files renamed over the originals, then post-write verification', 'Path validation and symlink protection', 'SHA-256 fingerprint re-check after confirmation to detect changed files', 'Automated CI on Windows, Linux and macOS, with platform-specific test coverage'],
+    tech: ['Go', 'Command-Line Tool', 'SHA-256', 'CI on Windows · Linux · macOS'],
+    badges: ['Open source', 'Public GitHub repo', 'MIT License', 'v0.1.0'],
+    repo: 'https://github.com/raul-alberto/clip-patch',
+    release: { label: 'Release v0.1.0', url: 'https://github.com/raul-alberto/clip-patch/releases/tag/v0.1.0' },
+    demo: '', diagram: 'clippatch' },
+  { id: '03', title: 'Enterprise SQL Server Database Documentation', role: 'IT & Database Documentation Intern (Lotacor)',
     desc: 'Schema mapping and technical documentation of an existing production SQL Server environment using SSMS, to support IT operations and onboarding. This was documentation work on an existing company database.',
     features: ['Table/relationship mapping', 'Query documentation', 'Standardized internal reference structure'],
     tech: ['SQL Server', 'SSMS', 'SQL', 'Technical Documentation'], repo: '', demo: '', diagram: 'schema' },
-  { id: '03', title: 'Virtualized Windows Server & Active Directory Homelab', role: 'Systems Administrator (Personal Lab)',
+  { id: '04', title: 'Virtualized Windows Server & Active Directory Homelab', role: 'Systems Administrator (Personal Lab)',
     desc: 'Multi-VM enterprise network simulation designed to practice user lifecycle management, storage governance, and network services.',
     features: ['Domain Controller setup', 'OU structure', 'Role-based permissions', 'Automated DHCP scopes', 'Roaming Profiles', 'FSRM file-screening & disk quotas'],
     tech: ['Windows Server', 'Active Directory', 'DHCP', 'FSRM', 'Virtualization'], repo: '', demo: '', diagram: 'homelab' },
-  { id: '04', title: 'Smart Traffic Light & Speed Detection Prototype', role: 'Embedded Systems & Hardware Developer (Academic Project)',
+  { id: '05', title: 'Smart Traffic Light & Speed Detection Prototype', role: 'Embedded Systems & Hardware Developer (Academic Project)',
     desc: 'Automated traffic control prototype that detects vehicle speed via infrared sensors and triggers visual/audio alerts and camera capture.',
     features: ['Dual-IR speed calculation', 'Automated LED signal logic', 'Buzzer alerts', 'ESP32-CAM integration'],
     tech: ['Arduino', 'ESP32-CAM', 'Infrared Sensors', 'C++/Embedded'], repo: '', demo: '', diagram: 'iot' },
